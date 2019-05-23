@@ -6,7 +6,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Cabang | SCM Quick Chicken</title>
+  <title>Suplier | SCM Quick Chicken</title>
 
   <!-- Custom fonts for this template-->
   <link href="<?php echo base_url() ?>assets/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">

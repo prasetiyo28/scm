@@ -18,6 +18,7 @@ class MScm extends CI_Model{
 
 	function get_sum($id){
 		$this->db->select('sum(jumlah) as jumlah');         
+		$this->db->where('status','3');
 		$this->db->where('id_cabang',$id);
 		$query = $this->db->get('stock');
 		return $query->row();	
