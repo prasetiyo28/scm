@@ -27,7 +27,7 @@
 
   <!-- Nav Item - Charts -->
   <li class="nav-item">
-    <a class="nav-link" href="#">
+    <a class="nav-link" href="<?php echo base_url() ?>suplier/cabang">
       <i class="fas fa-fw fa-handshake"></i>
       <span>Data Cabang</span>
     </a>
@@ -44,7 +44,7 @@
   </li>
 
   <li class="nav-item">
-    <a class="nav-link" href="#">
+    <a class="nav-link" href="<?php echo base_url() ?>suplier/transaksi">
       <i class="fas fa-fw fa-chart-area"></i>
       <span>Data Transaksi</span>
     </a>

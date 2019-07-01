@@ -36,6 +36,14 @@ class Cabang extends CI_Controller {
 
 	}
 
+	public function order(){
+		$data['id_cabang'] = $this->session->userdata('id_cabang');
+		$data['jumlah'] = $this->input->post('jumlah');
+		$this->MScm->tambah_data('stock',$data);
+		redirect('cabang/stock');
+
+	}
+
 	public function stock()
 	{
 		$id_cabang = $this->session->userdata('id_cabang');
@@ -100,6 +108,25 @@ class Cabang extends CI_Controller {
 	// 	$this->session->set_flashdata('alert','berhasil');
 	// 	redirect('cabang');
 	// }
+
+	public function update_pengeluaran(){
+		$id = $_POST['id'];
+		$data['jumlah'] = $_POST['jumlah'];
+
+		$this->MScm->update_data('pengeluaran',$id,'id_pengeluaran',$data);
+
+		redirect('cabang/pengeluaran');
+	}
+
+	public function update_order(){
+		$id = $_POST['id'];
+		$data['jumlah'] = $_POST['jumlah'];
+
+		$this->MScm->update_data('stock',$id,'id_stock',$data);
+
+		redirect('cabang/stock');
+	}
+
 
 	public function detail(){
 		$id = $_POST['id_paket'];

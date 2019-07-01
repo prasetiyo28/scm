@@ -29,7 +29,7 @@
 						<?php $no = 1; foreach ($order as $r) { ?>
 							<tr>
 								<td><?php echo $no++; ?></td>
-								<td><?php echo $r->id_cabang; ?></td>
+								<td><?php echo $r->nama_cabang; ?></td>
 								<td><?php echo $r->jumlah; ?></td>
 								<td><?php echo $r->tanggal; ?></td>
 								<td>
@@ -37,6 +37,8 @@
 										<a class="btn btn-info" href="<?php echo base_url() ?>suplier/terima/<?php echo $r->id_stock ?>">Terima Pesanan</a>
 									<?php }elseif($r->status == 1) { ?>
 										<a class="btn btn-primary" href="<?php echo base_url() ?>suplier/kirim/<?php echo $r->id_stock ?>">Kirim</a>
+									<?php }else{ ?>
+										<a class="btn btn-secondary" href="javascript:void(0)">Sedang dikirim</a>
 									<?php } ?>
 								</td>
 							</tr>

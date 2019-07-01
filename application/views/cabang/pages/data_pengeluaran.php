@@ -29,20 +29,32 @@
 								<td><?php echo $r->tanggal; ?></td>
 								<td><?php echo $r->jumlah; ?></td>
 								<td>
-									<a href="<?php echo base_url() ?>cabang/hapus_pengeluaran/<?php echo $r->id_pengeluaran ?>" class="btn btn-danger">Delete</a>
-									<a href="#" class="btn btn-warning">Edit</a>
-								</td>
-
-							</tr>
-						<?php } ?>
 
 
 
-					</tbody>
-				</table>
-			</div>
+									<a 
+									href="javascript:;"
+									data-id="<?php echo $r->id_pengeluaran ?>"
+									data-jumlah="<?php echo $r->jumlah ?>"
+									data-tanggal="<?php echo $r->tanggal ?>"
+									data-toggle="modal" data-target="#edit-data">
+									<button  data-toggle="modal" data-target="#ubah-data" class="btn btn-warning">Edit</button>
+								</a>
+
+								<a href="<?php echo base_url() ?>cabang/hapus_pengeluaran/<?php echo $r->id_pengeluaran ?>" class="btn btn-danger">Delete</a>
+
+							</td>
+
+						</tr>
+					<?php } ?>
+
+
+
+				</tbody>
+			</table>
 		</div>
 	</div>
+</div>
 
 </div>
 <!-- /.container-fluid -->
@@ -87,36 +99,62 @@
 		</div>
 	</div>
 </div>
-<script type="text/javascript">
-	$(document).ready(function(){
-		$('#DetailRuang').on('show.bs.modal', function (e) {
-			var rowid = $(e.relatedTarget).data('id');
-            //menggunakan fungsi ajax untuk pengambilan data
-            $.ajax({
-            	type : 'post',
-            	url : '<?php echo base_url() ?>mitra/detail',
-            	data :  'id_paket='+ rowid,
-            	success : function(data){
-                $('.fetched-data').html(data);//menampilkan data ke dalam modal
-            }
-        });
-        });
-	});
-</script>
 
-<div class="modal fade" id="DetailRuang" role="dialog">
-	<div class="modal-dialog" role="document">
+
+
+
+<!-- Modal Ubah -->
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="edit-data" class="modal fade">
+	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title">Detail Paket</h4>
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Ubah Data</h4>
+				<button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+				
 			</div>
-			<div class="modal-body">
-				<div class="fetched-data"></div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Keluar</button>
-			</div>
+			<form class="form-horizontal" action="<?php echo base_url('cabang/update_pengeluaran')?>" method="post" enctype="multipart/form-data" role="form">
+				<div class="modal-body">
+					<div class="form-group">
+						<label class="col-lg-2 col-sm-2 control-label">Tanggal</label>
+						<div class="col-lg-10">
+							<input type="text" readonly class="form-control" id="tanggal" name="tanggal" placeholder="tanggal">
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-lg-2 col-sm-2 control-label">Jumlah</label>
+						<div class="col-lg-10">
+							<input type="hidden" id="id" name="id">
+							<input type="text" class="form-control" id="jumlah" name="jumlah" placeholder="Id Pengeluaran">
+						</div>
+					</div>
+					
+
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-info" type="submit"> Simpan&nbsp;</button>
+					<button type="button" class="btn btn-warning" data-dismiss="modal"> Batal</button>
+				</div>
+			</form>
 		</div>
 	</div>
 </div>
+
+
+<!-- END Modal Ubah -->
+
+<script>
+	$(document).ready(function() {
+        // Untuk sunting
+        $('#edit-data').on('show.bs.modal', function (event) {
+            var div = $(event.relatedTarget) // Tombol dimana modal di tampilkan
+            var modal          = $(this)
+
+            // Isi nilai pada field
+            modal.find('#id').attr("value",div.data('id'));
+            modal.find('#jumlah').attr("value",div.data('jumlah'));
+            modal.find('#tanggal').attr("value",div.data('tanggal'));
+
+        });
+    });
+</script>

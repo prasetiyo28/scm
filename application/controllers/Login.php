@@ -51,7 +51,7 @@ class Login extends CI_Controller{
 				// echo json_encode($datauser2);
 				redirect('cabang');
 			}else{
-				redirect('SuperAdmin');
+				redirect('Suplier');
 			}
 		}
 

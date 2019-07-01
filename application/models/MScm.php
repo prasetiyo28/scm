@@ -44,9 +44,26 @@ class MScm extends CI_Model{
 	}
 
 	function get_order(){
-		$this->db->where("(status= '0' OR status = '1')");
-		$query = $this->db->get('stock');
+		$this->db->select('stock.*,cabang.nama_cabang');
+		$this->db->from('stock');
+		$this->db->join('cabang','stock.id_cabang = cabang.id_cabang');
+		$this->db->where("(status= '0' OR status = '1' OR status= '2')");
+		$query = $this->db->get();
 		return $query->result();	
+	}
+
+	function get_transaksi(){
+		$this->db->select('stock.*,cabang.nama_cabang');
+		$this->db->from('stock');
+		$this->db->join('cabang','stock.id_cabang = cabang.id_cabang');
+		$this->db->where('status','3');
+		$query = $this->db->get();
+		return $query->result();	
+	}
+
+	public function get_cabang_all(){
+		$query = $this->db->get('cabang');
+		return $query->result();
 	}
 
 
@@ -113,6 +130,12 @@ class MScm extends CI_Model{
 		$this->db->set('status','3');
 		$this->db->where($param,$id);
 		$this->db->update($table);
+	}
+
+	function update_data($table,$id,$param,$data){
+
+		$this->db->where($param,$id);
+		$this->db->update($table,$data);
 	}
 
 	function terima_order($table,$id,$param){
