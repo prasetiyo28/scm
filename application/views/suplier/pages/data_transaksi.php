@@ -18,7 +18,10 @@
 							
 							<th>no</th>
 							<th>Nama Cabang</th>
+							<th>Kategori</th>
 							<th>Jumlah</th>
+							<th>Harga</th>
+							<th>Total</th>
 							<th>Tanggal</th>
 							<!-- <th>Action</th> -->
 						</tr>
@@ -30,7 +33,10 @@
 							<tr align="center">
 								<td><?php echo $no++; ?></td>
 								<td><?php echo $r->nama_cabang; ?></td>
+								<td><?php echo $r->kategori; ?></td>
 								<td><?php echo $r->jumlah; ?></td>
+								<td><?php echo $r->harga; ?></td>
+								<td><?php echo $r->total; ?></td>
 								<td><?php echo $r->tanggal; ?></td>
 							<!-- 	<td>
 									<?php if ($r->status==0) { ?>

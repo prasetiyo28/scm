@@ -39,6 +39,7 @@ class Cabang extends CI_Controller {
 	public function order(){
 		$data['id_cabang'] = $this->session->userdata('id_cabang');
 		$data['jumlah'] = $this->input->post('jumlah');
+		$data['id_kategori'] = $this->input->post('kategori');
 		$this->MScm->tambah_data('stock',$data);
 		redirect('cabang/stock');
 
@@ -121,6 +122,7 @@ class Cabang extends CI_Controller {
 	public function update_order(){
 		$id = $_POST['id'];
 		$data['jumlah'] = $_POST['jumlah'];
+		// $data['id_kategori'] = $_POST['kategori'];
 
 		$this->MScm->update_data('stock',$id,'id_stock',$data);
 

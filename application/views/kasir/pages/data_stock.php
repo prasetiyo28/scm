@@ -17,7 +17,6 @@
 							<th>id</th>
 							<th>Tanggal</th>
 							<th>Jumlah</th>
-							<th>Jenis</th>
 							<th>Action</th>
 						</tr>
 					</thead>
@@ -29,7 +28,6 @@
 								<td><?php echo $r->id_stock; ?></td>
 								<td><?php echo $r->tanggal; ?></td>
 								<td><?php echo $r->jumlah; ?></td>
-								<td><?php echo $r->kategori; ?></td>
 								<?php if ($r->status == 0) { ?>
 									<td>
 										<a href="<?php echo base_url() ?>cabang/hapus_pengeluaran/<?php echo $r->id_stock ?>" class="btn btn-danger">Delete</a>
@@ -81,20 +79,12 @@
 			</div>
 			<div class="modal-body">
 				<form action='<?php echo base_url() ?>cabang/order' method="POST" enctype="multipart/form-data">
-					<div class="form-group">
-						<label for="inputText3" class="col-form-label">Jenis</label>
-						<select class="form-control" name="kategori" required>
-							<option value="" disabled selected>-pilih kategori-</option>
-							<option value="1">Paha</option>
-							<option value="2">Dada</option>
-						</select>
-					</div>
+
 					<div class="form-group">
 						<label for="inputText3" class="col-form-label">Stock</label>
-						<input id="inputText3" name="jumlah"  min="0" type="number" class="form-control" placeholder="Jumlah order stock...">
+						<input id="inputText3" name="jumlah"  min="0" type="number" class="form-control" placeholder="Jumlah pegeluaran hari ini...">
 					</div>
 
-					
 
 					<!-- <div class="form-group">
 						<label for="inputText3" class="col-form-label">Detail Foto</label>

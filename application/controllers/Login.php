@@ -37,7 +37,7 @@ class Login extends CI_Controller{
 			$this->session->set_userdata($datauser);
 			
 			if ($cek_login->jenis_user == 0) {
-				redirect('frontend');
+				redirect('Kasir');
 			}elseif($cek_login->jenis_user == 1){
 				$cek_cabang = $this->MScm->get_cabang($cek_login->id_user);
 				$datauser2 = array(

@@ -20,6 +20,7 @@
 							<th>Nama Cabang</th>
 							<th>Jumlah</th>
 							<th>Tanggal</th>
+							<th>Kategori</th>
 							<th>Action</th>
 						</tr>
 					</thead>
@@ -32,6 +33,7 @@
 								<td><?php echo $r->nama_cabang; ?></td>
 								<td><?php echo $r->jumlah; ?></td>
 								<td><?php echo $r->tanggal; ?></td>
+								<td><?php echo $r->kategori; ?></td>
 								<td>
 									<?php if ($r->status==0) { ?>
 										<a class="btn btn-info" href="<?php echo base_url() ?>suplier/terima/<?php echo $r->id_stock ?>">Terima Pesanan</a>

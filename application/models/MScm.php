@@ -24,6 +24,11 @@ class MScm extends CI_Model{
 		return $query->row();	
 	}
 
+	function get_paket_all(){
+		$query = $this->db->get('paket');
+		return $query->result();
+	}
+
 	function get_out($id){
 		$this->db->select('sum(jumlah) as jumlah');
 		$this->db->where('id_cabang',$id);
@@ -38,24 +43,28 @@ class MScm extends CI_Model{
 	}
 
 	function get_stock($id){
-		$this->db->where('id_cabang',$id);
+		$this->db->where('stock.id_cabang',$id);
+		$this->db->select('kategori.*,stock.*');
+		$this->db->join('kategori','kategori.id_kategori = stock.id_kategori');
 		$query = $this->db->get('stock');
 		return $query->result();	
 	}
 
 	function get_order(){
-		$this->db->select('stock.*,cabang.nama_cabang');
+		$this->db->select('stock.*,cabang.nama_cabang,kategori.kategori');
 		$this->db->from('stock');
 		$this->db->join('cabang','stock.id_cabang = cabang.id_cabang');
+		$this->db->join('kategori','kategori.id_kategori = stock.id_kategori');
 		$this->db->where("(status= '0' OR status = '1' OR status= '2')");
 		$query = $this->db->get();
 		return $query->result();	
 	}
 
 	function get_transaksi(){
-		$this->db->select('stock.*,cabang.nama_cabang');
+		$this->db->select('stock.*,cabang.nama_cabang,kategori.kategori,(stock.jumlah *  kategori.harga) as total,kategori.harga');
 		$this->db->from('stock');
 		$this->db->join('cabang','stock.id_cabang = cabang.id_cabang');
+		$this->db->join('kategori','kategori.id_kategori = stock.id_kategori');
 		$this->db->where('status','3');
 		$query = $this->db->get();
 		return $query->result();	
@@ -119,6 +128,12 @@ class MScm extends CI_Model{
 		return $query->row();
 	}
 
+	function get_kasir($id){
+		$this->db->where('id_user',$id);
+		$query = $this->db->get('kasir');
+		return $query->row();
+	}
+
 
 	function hapus($table,$id,$param){
 		$this->db->set('deleted','1');
@@ -148,6 +163,13 @@ class MScm extends CI_Model{
 		$this->db->set('status','2');
 		$this->db->where($param,$id);
 		$this->db->update($table);
+	}
+
+	function get_id_struk(){
+		$this->db->order_by('struk','DESC');
+		$this->db->limit(1);
+		$query = $this->db->get('transaksi');
+		return $query->row();
 	}
 
 
