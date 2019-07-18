@@ -36,6 +36,20 @@ class Cabang extends CI_Controller {
 
 	}
 
+	public function penjualan()
+	{
+		$id_cabang = $this->session->userdata('id_cabang');
+		$stock = $this->MScm->get_sum($id_cabang);
+		$pengeluaran = $this->MScm->get_out($id_cabang);
+
+		$data2['stock'] = $stock->jumlah - $pengeluaran->jumlah;
+		
+		$data2['penjualan'] = $this->MScm->get_penjualan($id_cabang);
+		$data['content'] = $this->load->view('cabang/pages/data_penjualan',$data2,true);
+		$this->load->view('cabang/default',$data);
+		// echo json_encode($data2);
+	}
+
 	public function order(){
 		$data['id_cabang'] = $this->session->userdata('id_cabang');
 		$data['jumlah'] = $this->input->post('jumlah');

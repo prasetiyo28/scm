@@ -6,7 +6,7 @@
 	<!-- DataTales Example -->
 	<div class="card shadow mb-4">
 		<div class="card-header py-3">
-			<h6 class="m-0 font-weight-bold text-primary">Data Pengeluaran <a href="#" data-toggle="modal" data-target="#exampleModal" class="btn btn-success"><i class="fa fa-plus"></i> Pengeluaran Hari ini</a></h6>
+			<h6 class="m-0 font-weight-bold text-primary">Data Pengeluaran </h6>
 		</div>
 		<div class="card-body">
 			<div class="container"><br/>
@@ -53,14 +53,14 @@
 							<tbody id="detail_cart">
 
 							</tbody>
-							<form action="<?php echo base_url() ?>Kasir/checkout" method="POST">
+							<form action="<?php echo base_url() ?>Kasir/checkout" method="POST" target="_blank">
 								<tr>
 									<td colspan="3">Bayar</td>
 									<td colspan="2"><input required class="form-control" type="number" name="bayar"></td>
 								</tr>	
 
 								<tr>
-									<td colspan="5"> <button class="btn btn-success btn-block" type="submit">Bayar</button> </td>
+									<td colspan="5"> <button class="btn btn-success btn-block" onclick="location.reload();" type="submit">Bayar</button> </td>
 								</tr>
 							</form>
 						</table>

@@ -21,6 +21,17 @@ class Kasir extends CI_Controller {
 		$this->load->view('kasir/default',$data);
 	}
 
+    public function penjualan()
+    {
+        $userid = $this->session->userdata('user_id');
+        $id_cabang = $this->MScm->get_kasir($userid)->id_cabang;
+
+        $data2['penjualan'] = $this->MScm->get_penjualan($id_cabang);
+        $data['content'] = $this->load->view('kasir/pages/data_penjualan',$data2,true);
+        $this->load->view('kasir/default',$data);
+        // echo json_encode($data2);
+    }
+
 	function add_to_cart(){ //fungsi Add To Cart
 		$data = array(
 			'id' => $this->input->post('produk_id'), 
@@ -78,6 +89,7 @@ class Kasir extends CI_Controller {
 
 
 
+        $data2['bayar'] = $this->input->post('bayar');
         $data2['total'] = $this->cart->total();
         $id_struk = intval($this->MScm->get_id_struk()->struk) + 1;
         foreach ($this->cart->contents() as $items) {
@@ -96,7 +108,7 @@ class Kasir extends CI_Controller {
 
         $this->cart->destroy();
 
-        // $this->load->view('struk',$data2);
+        $this->load->view('kasir/pages/struk',$data2);
         // echo json_encode($id_struk);
 
         

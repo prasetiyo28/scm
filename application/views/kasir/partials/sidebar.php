@@ -24,19 +24,28 @@
     
 
     <li class="nav-item">
-      <a class="nav-link" href="<?php echo base_url() ?>cabang/Transaksi">
+      <a class="nav-link" href="<?php echo base_url() ?>Kasir/Transaksi">
         <i class="fas fa-fw fa-chart-area"></i>
         <span>Transaksi</span></a>
       </li>
 
       <!-- Nav Item - Tables -->
       <li class="nav-item">
-        <a class="nav-link" href="<?php echo base_url() ?>cabang/paket">
+        <a class="nav-link" href="<?php echo base_url() ?>Kasir/paket">
           <i class="fas fa-fw fa-table"></i>
           <span>Paket</span>
         </a>
       </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="<?php echo base_url() ?>Kasir/penjualan">
+          <i class="fas fa-fw fa-table"></i>
+          <span>penjualan</span>
+        </a>
+      </li>
     </li>
+
+
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">

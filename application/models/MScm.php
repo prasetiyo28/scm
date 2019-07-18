@@ -42,6 +42,13 @@ class MScm extends CI_Model{
 		return $query->result();	
 	}
 
+	function get_penjualan($id){
+		$this->db->join('paket','paket.id_paket = transaksi.id_paket');
+		$this->db->where('transaksi.id_cabang',$id);
+		$query = $this->db->get('transaksi');
+		return $query->result();	
+	}
+
 	function get_stock($id){
 		$this->db->where('stock.id_cabang',$id);
 		$this->db->select('kategori.*,stock.*');
