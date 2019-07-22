@@ -22,7 +22,8 @@
 							<th>Jumlah</th>
 							<th>Harga</th>
 							<th>Total</th>
-							<th>Tanggal</th>
+							<th>Tangga Order</th>
+							<th>Tangga Transaksi</th>
 							<!-- <th>Action</th> -->
 						</tr>
 					</thead>
@@ -38,6 +39,7 @@
 								<td><?php echo $r->harga; ?></td>
 								<td><?php echo $r->total; ?></td>
 								<td><?php echo $r->tanggal; ?></td>
+								<td><?php echo $r->tanggal_transaksi; ?></td>
 							<!-- 	<td>
 									<?php if ($r->status==0) { ?>
 										<a class="btn btn-info" href="<?php echo base_url() ?>suplier/terima/<?php echo $r->id_stock ?>">Terima Pesanan</a>

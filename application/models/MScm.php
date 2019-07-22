@@ -90,11 +90,12 @@ class MScm extends CI_Model{
 		return $query->result();
 	}
 
-	function get_paket($id){
+	function get_paket(){
 
-		$this->db->where('paket.id_mitra',$id);
-		$this->db->where('paket.deleted','0');
+		// $this->db->where('paket.id_mitra',$id);
+		// $this->db->where('paket.deleted','0');
 		// $this->db->where('ruang.verif','0');
+		$this->db->join('kategori','kategori.id_kategori = paket.id_kategori');
 		$query = $this->db->get('paket');
 		return $query->result();
 	}
@@ -147,9 +148,16 @@ class MScm extends CI_Model{
 		$this->db->where($param,$id);
 		$this->db->update($table);
 	}
+	function hapus_real($table,$id,$param){
+		// $this->db->set('deleted','1');
+		$this->db->where($param,$id);
+		$this->db->delete($table);
+	}
 
 	function terima($table,$id,$param){
+		$now = date('Y-m-d H:i:s');
 		$this->db->set('status','3');
+		$this->db->set('tanggal_transaksi',$now);
 		$this->db->where($param,$id);
 		$this->db->update($table);
 	}

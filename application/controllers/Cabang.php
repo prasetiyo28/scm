@@ -36,6 +36,14 @@ class Cabang extends CI_Controller {
 
 	}
 
+	public function paket(){
+		$data2['paket'] = $this->MScm->get_paket();
+		$data['content'] = $this->load->view('cabang/pages/data_paket',$data2,true);
+		$this->load->view('cabang/default',$data);
+	}
+
+
+
 	public function penjualan()
 	{
 		$id_cabang = $this->session->userdata('id_cabang');
@@ -75,11 +83,11 @@ class Cabang extends CI_Controller {
 
 
 
-	public function hapus_ruang($id){
-		$table = 'ruang';
-		$param = 'id_ruang';
-		$this->MScm->hapus($table,$id,$param);
-		redirect('cabang/dataruang');
+	public function hapus_paket($id){
+		$table = 'paket';
+		$param = 'id_paket';
+		$this->MScm->hapus_real($table,$id,$param);
+		redirect('cabang/paket');
 	}
 
 	public function terima($id){
@@ -104,6 +112,25 @@ class Cabang extends CI_Controller {
 
 
 	}
+
+	public function save_paket(){
+
+
+		$data['nama'] = $_POST['nama'];
+		$data['id_kategori'] = $_POST['kategori'];
+		$data['banyak'] = $_POST['banyak'];
+		$data['harga'] = $_POST['harga'];
+		$data['keterangan'] = $_POST['keterangan'];
+
+		$tabel = 'paket';
+		$this->MScm->tambah_data($tabel,$data);
+		$this->session->set_flashdata('alert','berhasil');
+		redirect($_SERVER['HTTP_REFERER']);
+
+
+	}
+
+
 
 	// public function save_pengeluaran(){
 	// 	$data['id_user'] = $this->session->userdata('user_id');

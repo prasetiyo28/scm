@@ -28,7 +28,7 @@
     <li class="nav-item">
       <a class="nav-link" href="<?php echo base_url() ?>cabang/stock">
         <i class="fas fa-fw fa-chart-area"></i>
-        <span>Stok Masuk</span></a>
+        <span>Pengadaan Stok</span></a>
       </li>
 
       <!-- Nav Item - Tables -->
@@ -43,6 +43,13 @@
         <a class="nav-link" href="<?php echo base_url() ?>cabang/penjualan">
           <i class="fas fa-fw fa-table"></i>
           <span>Penjualan</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="<?php echo base_url() ?>cabang/paket">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Paket</span>
         </a>
       </li>
 

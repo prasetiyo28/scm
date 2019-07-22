@@ -6,7 +6,7 @@
 	<!-- DataTales Example -->
 	<div class="card shadow mb-4">
 		<div class="card-header py-3">
-			<h6 class="m-0 font-weight-bold text-primary">Data Stock <a href="#" data-toggle="modal" data-target="#exampleModal" class="btn btn-success"><i class="fa fa-plus"></i>Tambah Stock</a></h6>
+			<h6 class="m-0 font-weight-bold text-primary">Data Paket <a href="#" data-toggle="modal" data-target="#exampleModal" class="btn btn-success"><i class="fa fa-plus"></i> Tambah Paket</a></h6>
 		</div>
 		<div class="card-body">
 			<div class="table-responsive">
@@ -15,60 +15,53 @@
 						<tr>
 							
 							<th>id</th>
-							<th>Tanggal</th>
-							<th>Jumlah</th>
+							<th>Nama Paket</th>
+							<th>Kategori</th>
+							<th>Banyak</th>
 							<th>Harga</th>
-							<th>Total</th>
-							<th>Jenis</th>
+							<th>Keterangan</th>
 							<th>Action</th>
 						</tr>
 					</thead>
 
 					
 					<tbody>
-						<?php foreach ($datastock as $r) { ?>
+						<?php foreach ($paket as $r) { ?>
 							<tr>
-								<td><?php echo $r->id_stock; ?></td>
-								<td><?php echo $r->tanggal; ?></td>
-								<td><?php echo $r->jumlah; ?></td>
-								<td><?php echo $r->harga; ?></td>
-								<td><?php echo ($r->jumlah * $r->harga); ?></td>
+								<td><?php echo $r->id_paket; ?></td>
+								<td><?php echo $r->nama; ?></td>
 								<td><?php echo $r->kategori; ?></td>
-								<?php if ($r->status == 0) { ?>
-									<td>
-										<a href="<?php echo base_url() ?>cabang/hapus_pengeluaran/<?php echo $r->id_stock ?>" class="btn btn-danger">Delete</a>
-										<a 
-										href="javascript:;"
-										data-id="<?php echo $r->id_stock ?>"
-										data-jumlah="<?php echo $r->jumlah ?>"
-										data-tanggal="<?php echo $r->tanggal ?>"
-										data-toggle="modal" data-target="#edit-data">
-										<button  data-toggle="modal" data-target="#ubah-data" class="btn btn-warning">Edit</button>
-									</td>
-								<?php }elseif($r->status == 1){ ?>
-									<td>
-										<a href="javascript:void(0);" class="btn btn-warning"><i class="fa fa-box"></i> Sedang diproses</a>
-									</td>
-
-								<?php }elseif($r->status == 2){ ?>
-									<td>
-										<a href="<?php echo base_url() ?>cabang/terima/<?php echo $r->id_stock  ?>" class="btn btn-info"><i class="fa fa-truck"></i> Sedang dikirim</a>
-									</td>
-								<?php }else{ ?>
-									<td>
-										<a href="javascript:void(0);" class="btn btn-success"><i class="fa fa-check"></i> Diterima</a>
-									</td>
-								<?php } ?>
-							</tr>
-						<?php } ?>
+								<td><?php echo $r->banyak; ?></td>
+								<td><?php echo $r->harga; ?></td>
+								<td><?php echo $r->keterangan; ?></td>
+								<td>
 
 
 
-					</tbody>
-				</table>
-			</div>
+								<!-- 	<a 
+									href="javascript:;"
+									data-id="<?php echo $r->id_paket ?>"
+									data-jumlah="<?php echo $r->banyak ?>"
+									data-harga="<?php echo $r->harga ?>"
+									data-keterangan="<?php echo $r->keterangan ?>"
+									data-toggle="modal" data-target="#edit-data">
+									<button  data-toggle="modal" data-target="#ubah-data" class="btn btn-warning">Edit</button>
+								</a> -->
+
+								<a href="<?php echo base_url() ?>cabang/hapus_paket/<?php echo $r->id_paket ?>" class="btn btn-danger">Delete</a>
+
+							</td>
+
+						</tr>
+					<?php } ?>
+
+
+
+				</tbody>
+			</table>
 		</div>
 	</div>
+</div>
 
 </div>
 <!-- /.container-fluid -->
@@ -78,28 +71,45 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Pengeluaran Hari Ini</h5>
+				<h5 class="modal-title" id="exampleModalLabel">Tambah Paket</h5>
 				<a href="#" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</a>
 			</div>
 			<div class="modal-body">
-				<form action='<?php echo base_url() ?>cabang/order' method="POST" enctype="multipart/form-data">
+				<form action='<?php echo base_url() ?>cabang/save_paket' method="POST" enctype="multipart/form-data">
+
 					<div class="form-group">
-						<label for="inputText3" class="col-form-label">Jenis</label>
-						<select class="form-control" name="kategori" required>
-							<option value="" disabled selected>-pilih kategori-</option>
+						<label for="inputText3" class="col-form-label">Nama Paket</label>
+						<input id="inputText3" name="nama" type="text" class="form-control" placeholder="Nama Paket...">
+
+					</div>
+					<div class="form-group">
+						<label for="inputText3" class="col-form-label">Harga</label>
+						<input id="inputText3" name="harga" type="number" class="form-control" placeholder="Nama Paket...">
+
+					</div>
+					<div class="form-group">
+						<label for="inputText3" class="col-form-label">Kategori</label>
+						<select name="kategori" class="form-control">
 							<option value="1">Paha</option>
 							<option value="2">Dada</option>
 						</select>
+
 					</div>
 					<div class="form-group">
-						<label for="inputText3" class="col-form-label">Stock</label>
-						<input id="inputText3" name="jumlah"  min="0" type="number" class="form-control" placeholder="Jumlah order stock...">
+						<label for="inputText3" class="col-form-label">Banyak</label>
+						<input id="inputText3" name="banyak" type="number" class="form-control" placeholder="Banyak Ayam...">
+
+					</div>
+
+					<div class="form-group">
+						<label for="inputText3" class="col-form-label">keterangan</label>
+						<input id="inputText3" name="keterangan" type="text" class="form-control" placeholder="Keterangan Paket...">
+
 					</div>
 
 					
-
 					<!-- <div class="form-group">
 						<label for="inputText3" class="col-form-label">Detail Foto</label>
 						<p>*file yang diterima hanya berekstensi .jpg, .jpeg, .png</p>
@@ -121,6 +131,9 @@
 	</div>
 </div>
 
+
+
+
 <!-- Modal Ubah -->
 <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="edit-data" class="modal fade">
 	<div class="modal-dialog">
@@ -130,7 +143,7 @@
 				<button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
 				
 			</div>
-			<form class="form-horizontal" action="<?php echo base_url('cabang/update_order')?>" method="post" enctype="multipart/form-data" role="form">
+			<form class="form-horizontal" action="<?php echo base_url('cabang/update_pengeluaran')?>" method="post" enctype="multipart/form-data" role="form">
 				<div class="modal-body">
 					<div class="form-group">
 						<label class="col-lg-2 col-sm-2 control-label">Tanggal</label>
