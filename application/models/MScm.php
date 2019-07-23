@@ -37,9 +37,25 @@ class MScm extends CI_Model{
 	}
 
 	function get_pengeluaran($id){
+		$this->db->select('date(transaksi.tanggal) as tanggal, kategori.kategori , sum((paket.banyak*transaksi.jumlah)) as jumlah');
 		$this->db->where('id_cabang',$id);
-		$query = $this->db->get('pengeluaran');
+		$this->db->join('paket','transaksi.id_paket = paket.id_paket');
+		$this->db->join('kategori','paket.id_kategori = kategori.id_kategori');
+		$this->db->group_by('date(transaksi.tanggal)');
+		$this->db->order_by('date(transaksi.tanggal)','DESC');
+		$query = $this->db->get('transaksi');
 		return $query->result();	
+	}
+
+	function get_out_cabang($id){
+		$this->db->select('sum((paket.banyak*transaksi.jumlah)) as jumlah');
+		$this->db->where('id_cabang',$id);
+		$this->db->join('paket','transaksi.id_paket = paket.id_paket');
+		$this->db->join('kategori','paket.id_kategori = kategori.id_kategori');
+		$this->db->group_by('id_cabang');
+
+		$query = $this->db->get('transaksi');
+		return $query->row();	
 	}
 
 	function get_penjualan($id){

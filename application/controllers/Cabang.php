@@ -15,20 +15,20 @@ class Cabang extends CI_Controller {
 		$data['cabang'] = $this->MScm->get_cabang($id);
 		$id_cabang = $data['cabang']->id_cabang;
 		$stock = $this->MScm->get_sum($id_cabang);
-		$pengeluaran = $this->MScm->get_out($id_cabang);
+		$pengeluaran = $this->MScm->get_out_cabang($id_cabang);
 
 		$data['stock'] = $stock->jumlah - $pengeluaran->jumlah;
 		$data['content'] = $this->load->view('cabang/pages/dashboard',$data,true);
 		$this->load->view('cabang/default',$data);
+
+		// echo json_encode($pengeluaran)
 	}
 
 	public function pengeluaran()
 	{
 		$id_cabang = $this->session->userdata('id_cabang');
 		$stock = $this->MScm->get_sum($id_cabang);
-		$pengeluaran = $this->MScm->get_out($id_cabang);
-
-		$data2['stock'] = $stock->jumlah - $pengeluaran->jumlah;
+		
 		
 		$data2['pengeluaran'] = $this->MScm->get_pengeluaran($id_cabang);
 		$data['content'] = $this->load->view('cabang/pages/data_pengeluaran',$data2,true);
