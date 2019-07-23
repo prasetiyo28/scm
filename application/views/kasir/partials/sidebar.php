@@ -29,13 +29,7 @@
         <span>Transaksi</span></a>
       </li>
 
-      <!-- Nav Item - Tables -->
-      <li class="nav-item">
-        <a class="nav-link" href="<?php echo base_url() ?>Kasir/paket">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Paket</span>
-        </a>
-      </li>
+      
 
       <li class="nav-item">
         <a class="nav-link" href="<?php echo base_url() ?>Kasir/penjualan">
