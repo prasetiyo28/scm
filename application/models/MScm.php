@@ -16,6 +16,15 @@ class MScm extends CI_Model{
 		return $query->row();
 	}
 
+	function cek_order($id_cabang,$id_kategori){
+		$this->db->where('id_cabang',$id_cabang);
+		$this->db->where('id_kategori',$id_kategori);
+		$this->db->where('status < 3');
+		$query = $this->db->get('stock');
+		
+		return $query->row();
+	}
+
 	function get_sum($id){
 		$this->db->select('sum(jumlah) as jumlah');         
 		$this->db->where('status','3');
@@ -23,6 +32,50 @@ class MScm extends CI_Model{
 		$query = $this->db->get('stock');
 		return $query->row();	
 	}
+
+	function get_sum_sayap($id){
+		$this->db->select('sum(jumlah) as jumlah');         
+		$this->db->where('status','3');
+		$this->db->where('id_cabang',$id);
+		$this->db->where('id_kategori','3');
+		$this->db->group_by('id_kategori');
+		$query = $this->db->get('stock');
+		if ($query != '') {
+			return $query->row();
+		}else{
+			return $jumlah = 0;
+		}
+
+
+	}
+	function get_sum_dada($id){
+		$this->db->select('sum(jumlah) as jumlah');         
+		$this->db->where('status','3');
+		$this->db->where('id_cabang',$id);
+		$this->db->where('id_kategori','2');
+		$this->db->group_by('id_kategori');
+		$query = $this->db->get('stock');
+		if ($query != '') {
+			return $query->row();
+		}else{
+			return $jumlah = 0;
+		}
+	}
+	function get_sum_paha($id){
+		$this->db->select('sum(jumlah) as jumlah');         
+		$this->db->where('status','3');
+		$this->db->where('id_cabang',$id);
+		$this->db->where('id_kategori','1');
+		$this->db->group_by('id_kategori');
+		$query = $this->db->get('stock');
+		if ($query != '') {
+			return $query->row();
+		}else{
+			return $jumlah = 0;
+		}	
+	}
+
+
 
 	function get_paket_all(){
 		$query = $this->db->get('paket');
@@ -47,6 +100,54 @@ class MScm extends CI_Model{
 		return $query->result();	
 	}
 
+	function get_pengeluaran_sayap($id){
+		$this->db->select('date(transaksi.tanggal) as tanggal, kategori.kategori , sum((paket.banyak*transaksi.jumlah)) as jumlah');
+		$this->db->where('id_cabang',$id);
+		$this->db->where('kategori.id_kategori','3');
+		$this->db->join('paket','transaksi.id_paket = paket.id_paket');
+		$this->db->join('kategori','paket.id_kategori = kategori.id_kategori');
+		$this->db->group_by('date(transaksi.tanggal)');
+		$this->db->order_by('date(transaksi.tanggal)','DESC');
+		$query = $this->db->get('transaksi');
+		if ($query != '') {
+			return $query->row();
+		}else{
+			return $jumlah = 0;
+		}
+	}
+
+	function get_pengeluaran_dada($id){
+		$this->db->select('date(transaksi.tanggal) as tanggal, kategori.kategori , sum((paket.banyak*transaksi.jumlah)) as jumlah');
+		$this->db->where('id_cabang',$id);
+		$this->db->where('kategori.id_kategori','2');
+		$this->db->join('paket','transaksi.id_paket = paket.id_paket');
+		$this->db->join('kategori','paket.id_kategori = kategori.id_kategori');
+		$this->db->group_by('date(transaksi.tanggal)');
+		$this->db->order_by('date(transaksi.tanggal)','DESC');
+		$query = $this->db->get('transaksi');
+		if ($query != '') {
+			return $query->row();
+		}else{
+			return $jumlah = 0;
+		}	
+	}
+
+	function get_pengeluaran_paha($id){
+		$this->db->select('date(transaksi.tanggal) as tanggal, kategori.kategori , sum((paket.banyak*transaksi.jumlah)) as jumlah');
+		$this->db->where('id_cabang',$id);
+		$this->db->where('kategori.id_kategori','1');
+		$this->db->join('paket','transaksi.id_paket = paket.id_paket');
+		$this->db->join('kategori','paket.id_kategori = kategori.id_kategori');
+		$this->db->group_by('date(transaksi.tanggal)');
+		$this->db->order_by('date(transaksi.tanggal)','DESC');
+		$query = $this->db->get('transaksi');
+		if ($query != '') {
+			return $query->row();
+		}else{
+			return $jumlah = 0;
+		}
+	}
+
 	function get_out_cabang($id){
 		$this->db->select('sum((paket.banyak*transaksi.jumlah)) as jumlah');
 		$this->db->where('id_cabang',$id);
@@ -63,6 +164,16 @@ class MScm extends CI_Model{
 		$this->db->where('transaksi.id_cabang',$id);
 		$query = $this->db->get('transaksi');
 		return $query->result();	
+	}
+
+	function best_seller($id){
+		$this->db->select('sum(transaksi.jumlah) as jumlah,paket.nama');
+		$this->db->join('paket','paket.id_paket = transaksi.id_paket');
+		$this->db->group_by('transaksi.id_paket');
+		$this->db->where('transaksi.id_cabang',$id);
+		$this->db->order_by('jumlah','DESC');
+		$query = $this->db->get('transaksi');
+		return $query->row();	
 	}
 
 	function get_stock($id){

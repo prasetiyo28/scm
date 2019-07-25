@@ -34,22 +34,65 @@
 
 
  			</div>
- 			<?php if ($stock > 50) {
- 				$status = "success";
- 			}else{
- 				$status = "danger";
- 			} ?>
 
  		</div>
  		<div class="col-xl-12 col-md-12 mb-12">
- 			<div class="card bg-<?php echo $status  ?> shadow h-100 py-2">
+ 			<div class="card bg-warning shadow h-100 py-2">
  				<div class="card-body">
  					<div class="row no-gutters align-items-center">
  						<div class="col mr-2">
- 							<div class="text-xs font-weight-bold text-white text-uppercase mb-1"><h1 class="text-white">Jumlah StocK</h1></div>
+ 							<div class="text-xs font-weight-bold text-white text-uppercase mb-1"><h1 class="text-white">Paket Terlaris :</h1></div>
  						</div>
  						<div class="col-auto text-white">
- 							<h1><?php echo $stock; ?></h1>
+ 							<h1><?php echo $paket->nama; ?></h1>
+ 							
+ 						</div>
+ 					</div>
+ 				</div>
+ 			</div>
+ 		</div>
+
+ 		<div class="col-xl-12 col-md-12 mb-12">
+ 			<div class="card bg-info shadow h-100 py-2">
+ 				<div class="card-body">
+ 					<div class="row no-gutters align-items-center">
+ 						<div class="col mr-2">
+ 							<div class="text-xs font-weight-bold text-white text-uppercase mb-1"><h1 class="text-white">Jumlah Stock Sayap</h1></div>
+ 						</div>
+ 						<div class="col-auto text-white">
+ 							<h1><?php echo intval($sayap); ?></h1>
+ 							
+ 						</div>
+ 					</div>
+ 				</div>
+ 			</div>
+ 		</div>
+
+ 		<div class="col-xl-12 col-md-12 mb-12">
+ 			<div class="card bg-info shadow h-100 py-2">
+ 				<div class="card-body">
+ 					<div class="row no-gutters align-items-center">
+ 						<div class="col mr-2">
+ 							<div class="text-xs font-weight-bold text-white text-uppercase mb-1"><h1 class="text-white">Jumlah Stock Paha</h1></div>
+ 						</div>
+ 						<div class="col-auto text-white">
+ 							<h1><?php echo intval($paha); ?></h1>
+ 							
+ 						</div>
+ 					</div>
+ 				</div>
+ 			</div>
+ 		</div>
+
+ 		<div class="col-xl-12 col-md-12 mb-12">
+ 			<div class="card bg-info shadow h-100 py-2">
+ 				<div class="card-body">
+ 					<div class="row no-gutters align-items-center">
+ 						<div class="col mr-2">
+ 							<div class="text-xs font-weight-bold text-white text-uppercase mb-1"><h1 class="text-white">Jumlah Stock Dada</h1></div>
+ 						</div>
+ 						<div class="col-auto text-white">
+ 							<h1><?php echo intval($dada); ?></h1>
  							
  						</div>
  					</div>

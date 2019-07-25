@@ -11,13 +11,64 @@ class Cabang extends CI_Controller {
 	
 	public function index()
 	{
+
+		
+
 		$id = $this->session->userdata('user_id');
 		$data['cabang'] = $this->MScm->get_cabang($id);
 		$id_cabang = $data['cabang']->id_cabang;
-		$stock = $this->MScm->get_sum($id_cabang);
-		$pengeluaran = $this->MScm->get_out_cabang($id_cabang);
+		
+		$stock_sayap = $this->MScm->get_sum_sayap($id_cabang);
+		$stock_paha = $this->MScm->get_sum_paha($id_cabang);
+		$stock_dada = $this->MScm->get_sum_dada($id_cabang);
+		
+		if ($stock_sayap != '') {
+			$stock_sayap = $stock_sayap->jumlah;
+		}
+		if ($stock_paha != '') {
+			$stock_paha = $stock_paha->jumlah;
+		}
+		if ($stock_dada != '') {
+			$stock_dada = $stock_dada->jumlah;
+		}
 
-		$data['stock'] = $stock->jumlah - $pengeluaran->jumlah;
+		$pengeluaran_sayap = $this->MScm->get_pengeluaran_sayap($id_cabang);
+		
+		$pengeluaran_dada = $this->MScm->get_pengeluaran_dada($id_cabang);
+		$pengeluaran_paha = $this->MScm->get_pengeluaran_paha($id_cabang);
+
+		if ($pengeluaran_sayap != '') {
+			$pengeluaran_sayap = $pengeluaran_sayap->jumlah;
+		}
+		if ($pengeluaran_paha != '') {
+			$pengeluaran_paha = $pengeluaran_paha->jumlah;
+		}
+		if ($pengeluaran_dada != '') {
+			$pengeluaran_dada = $pengeluaran_dada->jumlah;
+		}
+
+
+		$tersedia_sayap = intval($stock_sayap) - intval($pengeluaran_sayap);
+		$tersedia_paha = intval($stock_paha) - intval($pengeluaran_paha);
+		$tersedia_dada = intval($stock_dada) - intval($pengeluaran_dada);
+
+		if ($tersedia_sayap < 50) {
+			$this->order('3');
+		}
+
+		if ($tersedia_paha < 50) {
+			$this->order('1');
+		}
+
+		if ($tersedia_dada < 50) {
+			$this->order('2');
+		}
+
+		$data['sayap'] = $tersedia_sayap;
+		$data['paha'] = $tersedia_paha;
+		$data['dada'] = $stock_dada;
+		$data['paket'] = $this->MScm->best_seller($id_cabang);
+		// $data['stock'] = $stock->jumlah - $pengeluaran->jumlah;
 		$data['content'] = $this->load->view('cabang/pages/dashboard',$data,true);
 		$this->load->view('cabang/default',$data);
 
@@ -58,12 +109,17 @@ class Cabang extends CI_Controller {
 		// echo json_encode($data2);
 	}
 
-	public function order(){
+	public function order($id_kategori){
 		$data['id_cabang'] = $this->session->userdata('id_cabang');
-		$data['jumlah'] = $this->input->post('jumlah');
-		$data['id_kategori'] = $this->input->post('kategori');
-		$this->MScm->tambah_data('stock',$data);
-		redirect('cabang/stock');
+		$data['jumlah'] = '100';
+		$data['id_kategori'] = $id_kategori;
+
+		$cek_order = $this->MScm->cek_order($data['id_cabang'],$data['id_kategori']);
+		if ($cek_order == '') {
+			$this->MScm->tambah_data('stock',$data);
+		}
+		
+		// redirect('cabang/stock');
 
 	}
 
