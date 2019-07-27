@@ -55,7 +55,7 @@
 
       <li class="nav-item">
         <a class="nav-link" href="<?php echo base_url() ?>cabang/settings">
-          <i class="fas fa-fw fa-settins"></i>
+          <i class="fas fa-fw fa-tools"></i>
           <span>Settings</span>
         </a>
       </li>
