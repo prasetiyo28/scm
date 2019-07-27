@@ -13,8 +13,9 @@ class Cabang extends CI_Controller {
 	{
 
 		
-
-		$id = $this->session->userdata('user_id');
+		$minimum = $this->session->userdata('minimum');
+		// echo $minimum;
+		$id = $this->session->userdata('user_id');	
 		$data['cabang'] = $this->MScm->get_cabang($id);
 		$id_cabang = $data['cabang']->id_cabang;
 		
@@ -52,15 +53,15 @@ class Cabang extends CI_Controller {
 		$tersedia_paha = intval($stock_paha) - intval($pengeluaran_paha);
 		$tersedia_dada = intval($stock_dada) - intval($pengeluaran_dada);
 
-		if ($tersedia_sayap < 50) {
+		if ($tersedia_sayap < $minimum) {
 			$this->order('3');
 		}
 
-		if ($tersedia_paha < 50) {
+		if ($tersedia_paha < $minimum) {
 			$this->order('1');
 		}
 
-		if ($tersedia_dada < 50) {
+		if ($tersedia_dada < $minimum) {
 			$this->order('2');
 		}
 
@@ -73,6 +74,28 @@ class Cabang extends CI_Controller {
 		$this->load->view('cabang/default',$data);
 
 		// echo json_encode($pengeluaran)
+	}
+
+	public function settings()
+	{
+		$id = $this->session->userdata('user_id');	
+		$data2['cabang'] = $this->MScm->get_cabang($id);
+		$data['content'] = $this->load->view('cabang/pages/settings',$data2,true);
+		$this->load->view('cabang/default',$data);
+
+
+	}
+
+	public function update_minimum()
+	{
+		$id = $this->session->userdata('id_cabang');	
+		$data['minimum'] = $this->input->post('minimum');
+		$this->MScm->update_data('cabang',$id,'id_cabang',$data);
+		$datauser2 = array(
+			'minimum' => $this->input->post('minimum')
+		);
+		$this->session->set_userdata($datauser2);
+		redirect('cabang/settings');
 	}
 
 	public function pengeluaran()

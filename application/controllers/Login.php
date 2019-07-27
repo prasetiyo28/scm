@@ -44,7 +44,8 @@ class Login extends CI_Controller{
 					'id_cabang' => $cek_cabang->id_cabang,
 					'nama_cabang' => $cek_cabang->nama_cabang,
 					'alamat_cabang' => $cek_cabang->alamat,
-					'no_telp_cabang' => $cek_cabang->no_telp
+					'no_telp_cabang' => $cek_cabang->no_telp,
+					'minimum' => $cek_cabang->minimum
 				);
 				$this->session->set_userdata($datauser2);
 
