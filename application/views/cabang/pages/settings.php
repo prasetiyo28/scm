@@ -33,7 +33,7 @@
  							href="javascript:;"
  							data-minimum="<?php echo $cabang->minimum ?>"
  							data-toggle="modal" data-target="#edit-data">
- 							<button  data-toggle="modal" data-target="#ubah-data" class="btn btn-warning">Edit</button>
+ 							<button  data-toggle="modal" data-target="#ubah-data" class="btn btn-warning">Edit</button></a>
  						</td>
 
  					</form>
