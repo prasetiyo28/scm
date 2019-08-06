@@ -83,12 +83,6 @@ class Kasir extends CI_Controller {
     public function checkout(){
         $userid = $this->session->userdata('user_id');
         $id_cabang = $this->MScm->get_kasir($userid)->id_cabang;
-
-
-
-
-
-
         $data2['bayar'] = $this->input->post('bayar');
         $data2['total'] = $this->cart->total();
         $id_struk = intval($this->MScm->get_id_struk()->struk) + 1;

@@ -67,7 +67,7 @@ class Cabang extends CI_Controller {
 
 		$data['sayap'] = $tersedia_sayap;
 		$data['paha'] = $tersedia_paha;
-		$data['dada'] = $stock_dada;
+		$data['dada'] = $tersedia_dada;
 		$data['paket'] = $this->MScm->best_seller($id_cabang);
 		// $data['stock'] = $stock->jumlah - $pengeluaran->jumlah;
 		$data['content'] = $this->load->view('cabang/pages/dashboard',$data,true);
